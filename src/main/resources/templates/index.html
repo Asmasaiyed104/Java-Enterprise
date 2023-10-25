@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link th:href="@{/css/style.css}" rel="stylesheet">
+    
+</head>
+<body>
+	<h1 style="font-family: 'Arial', sans-serif; font-size: 36px; color: #007BFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);">Welcome to <span style="font-weight: bold;">Asma's Website</span></h1>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+	<table cellpadding="9" border="3px"
+		th:if="${reviewList !=null AND reviewList !=''}">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Review</th>
+			<th>Date</th>
+			<th>Time</th>
+			<th>StreamService</th>
+		</tr>
+		<tr th:each="m : ${reviewList}">
+			<td th:text="${m.id}"></td>
+			<td th:text="${m.name}"></td>
+			<td th:text="${m.reviews}"></td>
+			<td th:text="${m.reviewDate}"></td>
+			<td th:text="${m.reviewTime}"></td>
+			<td th:text="${m.service}"></td>
+		</tr>
+
+	</table>
+	<hr>
+	<form method="post" action="" th:action="@{/insertReview}"
+		th:object="${review}">
+		<input type="hidden" name="id" th:field="*{id}" /> 
+		Name:  <input type="text" name="name" th:field="*{name}" /><br> 
+		Review:<input type="text" name="reviews" th:field="*{reviews}" /><br> 
+		Date:  <input type="date" name="reviewDate" th:field="*{reviewDate}" /><br>
+		Time:  <input type="time" name="reviewTime" th:field="*{reviewTime}" /><br>
+		Service :<select th:field="*{service}">
+			<option th:each="s : *{STREAMSERVICES}" th:value="${s}"
+				th:text="${s}" />
+		</select><br>
+	    <input type="submit" value="Go!" />
+	</form>
+
+
+</body>
+</html>
